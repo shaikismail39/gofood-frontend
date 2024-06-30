@@ -7,7 +7,7 @@ import {
   Route
 } from "react-router-dom";
 import Login from './screens/Login';
-import 'bootstrap-dark-5/dist/css/bootstrap-dark.min.css';
+// import 'bootstrap-dark-5/dist/css/bootstrap-dark.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import SignUp from './screens/SignUp';
 import { CartProvider } from './components/ContextReducer';
