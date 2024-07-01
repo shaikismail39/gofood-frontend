@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 
@@ -63,7 +64,7 @@ export default function SignUp() {
                   </div>
                   <div className="card-footer text-center py-3">
                     <div className="small">
-                      If you are not redirected automatically, <a href="/login">click here</a> to login.
+                        <Link to="/login">If you are not redirected automatically, click here</Link>
                     </div>
                   </div>
                 </div>
@@ -112,7 +113,7 @@ export default function SignUp() {
                 </div>
                 <div className="card-footer text-center py-3">
                   <div className="small">
-                    Already have an account? <a href="/login">Sign in!</a>
+                    <Link to="/login">Already have an account? Sign in!</Link>
                   </div>
                 </div>
               </div>
