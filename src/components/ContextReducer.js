@@ -1,43 +1,42 @@
-import React, { createContext, useContext, useReducer } from 'react'
+import React, { createContext, useReducer, useContext } from 'react';
+
 const CartStateContext = createContext();
 const CartDispatchContext = createContext();
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "ADD":
-      return [...state, { id: action.id, name: action.name, qty: action.qty, size: action.size, price: action.price, img: action.img }]
-    case "REMOVE":
-      let newArr = [...state]
-      newArr.splice(action.index, 1)
-      return newArr;
-    case "UPDATE":
-      let arr = [...state]
-      arr.find((food, index) => {
-        if (food.id === action.id) {
-          console.log();
-          arr[index] = { ...food, qty: parseInt(action.qty) + food.qty, price: action.price + food.price }
-        }
-        return arr;
-      })
-      return arr;
 
-    case "DROP":
-      let empArray = []
-      return empArray
+const cartReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD':
+      return [...state, { ...action, qty: action.qty }];
+    case 'UPDATE':
+      return state.map(item =>
+        item.id === action.id && item.size === action.size
+          ? { ...item, qty: action.qty, price: action.price }
+          : item
+      );
+    case 'DROP':
+      let empArray = [];
+      return empArray;
+    case 'REMOVE':
+      let newArr = [...state];
+      newArr.splice(action.index, 1);
+      return newArr;
     default:
       console.log("Error in Reducer");
-
+      throw new Error(`Unknown action: ${action.type}`);
   }
-}
+};
 
 export const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, [])
+  const [state, dispatch] = useReducer(cartReducer, []);
+
   return (
-    <CartDispatchContext.Provider value={dispatch}>
-      <CartStateContext.Provider value={state}>
+    <CartStateContext.Provider value={state}>
+      <CartDispatchContext.Provider value={dispatch}>
         {children}
-      </CartStateContext.Provider>
-    </CartDispatchContext.Provider>
-  )
-}
-export const useCart = () => (useContext(CartStateContext))
-export const useDispatchCart = () => (useContext(CartDispatchContext))
+      </CartDispatchContext.Provider>
+    </CartStateContext.Provider>
+  );
+};
+
+export const useCart = () => useContext(CartStateContext);
+export const useDispatchCart = () => useContext(CartDispatchContext);
