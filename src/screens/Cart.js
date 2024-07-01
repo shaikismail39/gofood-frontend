@@ -47,6 +47,7 @@ export default function Cart() {
           <thead className=' text-success fs-4'>
             <tr>
               <th scope='col' >#</th>
+              <th scope='col'>Image</th>
               <th scope='col' >Name</th>
               <th scope='col' >Quantity</th>
               <th scope='col' >Option</th>
@@ -58,6 +59,7 @@ export default function Cart() {
             {data.map((food, index) => (
               <tr>
                 <th scope='row' >{index + 1}</th>
+                <td><img src={food.img || 'default-image.jpg'} alt={food.name} style={{ width: '50px', height: '50px', objectFit: 'cover' }} /></td>
                 <td >{food.name}</td>
                 <td>{food.qty}</td>
                 <td>{food.size}</td>
@@ -72,9 +74,6 @@ export default function Cart() {
           <button className='btn bg-success mt-5 ' onClick={handleCheckOut} > Check Out </button>
         </div>
       </div>
-
-
-
     </div >
   )
 }
